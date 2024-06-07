@@ -52,14 +52,14 @@ export default {
         }, {
           headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json' // Ensure content type is JSON
+            'Content-Type': 'application/json'
           }
         });
         this.$router.push('/');
       } catch (error) {
         console.error('Error creating post:', error);
         if (error.response && error.response.data) {
-          this.error = error.response.data;
+          this.error = error.response.data.errors ? error.response.data.errors.UserId.join(', ') : error.response.data;
         } else {
           this.error = "Failed to create post. Please try again.";
         }

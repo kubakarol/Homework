@@ -160,3 +160,4 @@ C:\Users\kubak\Desktop\szkoła\4 semestr\ionic\Homework\Homework backend\Homewor
 C:\Users\kubak\Desktop\szkoła\4 semestr\ionic\Homework\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.pdb
 C:\Users\kubak\Desktop\szkoła\4 semestr\ionic\Homework\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.genruntimeconfig.cache
 C:\Users\kubak\Desktop\szkoła\4 semestr\ionic\Homework\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\ref\HomeworkPlatform backend.dll
+C:\Users\kubak\Desktop\szkoła\4 semestr\ionic\Homework\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.sourcelink.json

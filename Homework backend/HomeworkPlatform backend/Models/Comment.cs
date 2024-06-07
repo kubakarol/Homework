@@ -1,6 +1,6 @@
 ﻿namespace HomeworkPlatform_backend.Models
 {
-    public class AddComment
+    public class Comment
     {
         public string PostId { get; set; }
         public string UserId { get; set; }

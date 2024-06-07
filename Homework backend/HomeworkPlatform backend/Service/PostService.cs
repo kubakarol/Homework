@@ -1,16 +1,12 @@
 ﻿using HomeworkPlatform_backend.Models;
+using HomeworkPlatform_backend.Service.IService;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HomeworkPlatform_backend.Service
 {
-    public interface IPostService
-    {
-        Task<Post> CreatePostAsync(CreatePost model);
-        Task<Comment> AddCommentAsync(AddComment model);
-        Task<List<Post>> GetAllPostsAsync();
-    }
-
     public class PostService : IPostService
     {
         private readonly IMongoCollection<Post> _posts;
@@ -27,19 +23,19 @@ namespace HomeworkPlatform_backend.Service
             {
                 Title = model.Title,
                 Content = model.Content,
-                UserId = model.UserId
+                UserId = model.UserId,
             };
 
             await _posts.InsertOneAsync(post);
             return post;
         }
 
-        public async Task<Comment> AddCommentAsync(AddComment model)
+        public async Task<Comment> AddCommentAsync(Comment model)
         {
             var comment = new Comment
             {
                 UserId = model.UserId,
-                Content = model.Content
+                Content = model.Content,
             };
 
             var filter = Builders<Post>.Filter.Eq(p => p.Id, model.PostId);

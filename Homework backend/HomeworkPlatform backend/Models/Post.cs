@@ -15,9 +15,4 @@ namespace HomeworkPlatform_backend.Models
         public List<Comment> Comments { get; set; } = new List<Comment>();
     }
 
-    public class Comment
-    {
-        public string UserId { get; set; }
-        public string Content { get; set; }
-    }
 }

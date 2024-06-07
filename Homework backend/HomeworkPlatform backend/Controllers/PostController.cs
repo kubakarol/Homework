@@ -1,5 +1,5 @@
 ﻿using HomeworkPlatform_backend.Models;
-using HomeworkPlatform_backend.Service;
+using HomeworkPlatform_backend.Service.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -25,6 +25,8 @@ namespace HomeworkPlatform_backend.Controllers
         [Authorize]
         public async Task<IActionResult> CreatePost([FromBody] CreatePost model)
         {
+            _logger.LogInformation("Received create post request: {@Model}", model);
+
             if (!ModelState.IsValid)
             {
                 _logger.LogWarning("Model state invalid: {ModelState}", ModelState);
@@ -32,6 +34,12 @@ namespace HomeworkPlatform_backend.Controllers
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                _logger.LogWarning("User ID not found in claims.");
+                return Unauthorized("User ID not found.");
+            }
+
             model.UserId = userId;
 
             _logger.LogInformation("Creating post with Title: {Title}, Content: {Content}, UserId: {UserId}", model.Title, model.Content, model.UserId);
@@ -41,6 +49,7 @@ namespace HomeworkPlatform_backend.Controllers
                 var post = await _postService.CreatePostAsync(model);
                 if (post == null)
                 {
+                    _logger.LogWarning("Post creation failed for unknown reasons.");
                     return BadRequest("Post creation failed.");
                 }
                 return Ok(post);
@@ -54,7 +63,7 @@ namespace HomeworkPlatform_backend.Controllers
 
         [HttpPost("addComment")]
         [Authorize]
-        public async Task<IActionResult> AddComment([FromBody] AddComment model)
+        public async Task<IActionResult> AddComment([FromBody] Comment model)
         {
             if (!ModelState.IsValid)
             {
@@ -62,6 +71,12 @@ namespace HomeworkPlatform_backend.Controllers
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                _logger.LogWarning("User ID not found in claims.");
+                return Unauthorized("User ID not found.");
+            }
+
             model.UserId = userId;
 
             _logger.LogInformation($"Adding comment with PostId: {model.PostId}, Content: {model.Content}, UserId: {model.UserId}");
