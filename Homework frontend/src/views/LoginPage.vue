@@ -21,10 +21,35 @@
 </template>
 
 <script>
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonItem,
+  IonLabel,
+  IonInput,
+  IonButton,
+  IonText
+} from '@ionic/vue';
 import axios from 'axios';
 import { useStore } from 'vuex';
 
 export default {
+  name: 'Login',
+  components: {
+    IonPage,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonItem,
+    IonLabel,
+    IonInput,
+    IonButton,
+    IonText
+  },
   data() {
     return {
       username: '',

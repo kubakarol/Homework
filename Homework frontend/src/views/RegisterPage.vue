@@ -20,9 +20,32 @@
 </template>
 
 <script>
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonItem,
+  IonLabel,
+  IonInput,
+  IonButton
+} from '@ionic/vue';
 import axios from 'axios';
 
 export default {
+  name: 'Register',
+  components: {
+    IonPage,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonItem,
+    IonLabel,
+    IonInput,
+    IonButton
+  },
   data() {
     return {
       username: '',
