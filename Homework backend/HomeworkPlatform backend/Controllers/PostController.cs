@@ -27,13 +27,8 @@ namespace HomeworkPlatform_backend.Controllers
         {
             _logger.LogInformation("Received create post request: {@Model}", model);
 
-            if (!ModelState.IsValid)
-            {
-                _logger.LogWarning("Model state invalid: {ModelState}", ModelState);
-                return BadRequest(ModelState);
-            }
-
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            _logger.LogInformation("Extracted UserId from claims: {UserId}", userId);
             if (string.IsNullOrEmpty(userId))
             {
                 _logger.LogWarning("User ID not found in claims.");
@@ -41,6 +36,12 @@ namespace HomeworkPlatform_backend.Controllers
             }
 
             model.UserId = userId;
+
+            if (!ModelState.IsValid)
+            {
+                _logger.LogWarning("Model state invalid: {ModelState}", ModelState);
+                return BadRequest(ModelState);
+            }
 
             _logger.LogInformation("Creating post with Title: {Title}, Content: {Content}, UserId: {UserId}", model.Title, model.Content, model.UserId);
 
@@ -61,6 +62,7 @@ namespace HomeworkPlatform_backend.Controllers
             }
         }
 
+
         [HttpPost("addComment")]
         [Authorize]
         public async Task<IActionResult> AddComment([FromBody] Comment model)
@@ -71,15 +73,17 @@ namespace HomeworkPlatform_backend.Controllers
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrEmpty(userId))
+            var userName = User.FindFirstValue(ClaimTypes.Name);
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(userName))
             {
-                _logger.LogWarning("User ID not found in claims.");
-                return Unauthorized("User ID not found.");
+                _logger.LogWarning("User ID or Username not found in claims.");
+                return Unauthorized("User ID or Username not found.");
             }
 
             model.UserId = userId;
+            model.UserName = userName; // Set the UserName
 
-            _logger.LogInformation($"Adding comment with PostId: {model.PostId}, Content: {model.Content}, UserId: {model.UserId}");
+            _logger.LogInformation($"Adding comment with PostId: {model.PostId}, Content: {model.Content}, UserId: {model.UserId}, UserName: {model.UserName}");
 
             try
             {

@@ -25,9 +25,9 @@ namespace HomeworkPlatform_backend.Service
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Name, user.UserName)
-            };
+        new Claim(ClaimTypes.NameIdentifier, user.Id),
+        new Claim(ClaimTypes.Name, user.UserName)
+    };
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -39,11 +39,8 @@ namespace HomeworkPlatform_backend.Service
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
-
-            // Log the token for debugging
-            Console.WriteLine($"Generated Token: {tokenString}");
             return tokenHandler.WriteToken(token);
         }
+
     }
 }
