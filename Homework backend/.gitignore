@@ -8,6 +8,20 @@
 *.userosscache
 *.sln.docstates
 
+# Ignore Visual Studio files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore build output directories
+*/bin/
+*/obj/
+
+# Ignore specific file extensions
+*.exe
+*.dll
+
 # User-specific files (Mono Auto Generated)
 mono_crash.*
 
