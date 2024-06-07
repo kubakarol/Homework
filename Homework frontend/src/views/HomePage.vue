@@ -19,7 +19,9 @@
             <h3>Comments</h3>
             <ion-list>
               <ion-item v-for="comment in post.comments" :key="comment.id">
-                <ion-label>{{ comment.content }}</ion-label>
+                <ion-label>
+                  <strong>{{ comment.userName }}</strong>: {{ comment.content }}
+                </ion-label>
               </ion-item>
               <ion-item v-if="isAuthenticated">
                 <ion-input v-model="post.newComment" placeholder="Add a comment..."></ion-input>
@@ -87,7 +89,7 @@ export default {
       this.$router.push('/login');
     },
     logout() {
-      this.$store.commit('logout');
+      this.$store.commit('clearAuthData');
       this.$router.push('/login');
     }
   },

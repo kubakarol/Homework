@@ -20,6 +20,9 @@ import '@ionic/vue/css/display.css';
 // Import Bootstrap CSS
 import 'bootstrap/dist/css/bootstrap.css';
 
+store.dispatch('autoLogin');
+
+
 const app = createApp(App)
   .use(IonicVue)
   .use(router)

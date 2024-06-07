@@ -39,32 +39,32 @@ export default {
   },
   methods: {
     async createPost() {
-      if (!this.title || !this.content) {
-        this.error = "Title and content are required.";
-        return;
-      }
+  if (!this.title || !this.content) {
+    this.error = "Title and content are required.";
+    return;
+  }
 
-      try {
-        const token = this.$store.state.token;
-        const response = await axios.post('https://localhost:7195/api/Post/create', {
-          title: this.title,
-          content: this.content
-        }, {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        });
-        this.$router.push('/');
-      } catch (error) {
-        console.error('Error creating post:', error);
-        if (error.response && error.response.data) {
-          this.error = error.response.data.errors ? error.response.data.errors.UserId.join(', ') : error.response.data;
-        } else {
-          this.error = "Failed to create post. Please try again.";
-        }
+  try {
+    const token = this.$store.state.token;
+    const response = await axios.post('https://localhost:7195/api/Post/create', {
+      title: this.title,
+      content: this.content
+    }, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
       }
+    });
+    this.$router.push('/');
+  } catch (error) {
+    console.error('Error creating post:', error);
+    if (error.response && error.response.data) {
+      this.error = error.response.data.errors ? error.response.data.errors.UserId.join(', ') : error.response.data;
+    } else {
+      this.error = "Failed to create post. Please try again.";
     }
+  }
+},
   },
   setup() {
     const store = useStore();
