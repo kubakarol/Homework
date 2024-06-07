@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\HomeworkPlatform backend.props" />
+</Project>

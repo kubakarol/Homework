@@ -1,0 +1,7 @@
+{
+  "name": "HomeworkPlatform frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}

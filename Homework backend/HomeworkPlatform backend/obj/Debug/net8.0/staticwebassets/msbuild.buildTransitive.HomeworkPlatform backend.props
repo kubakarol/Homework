@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\HomeworkPlatform backend.props" />
+</Project>

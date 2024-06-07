@@ -1,0 +1,6 @@
+@HomeworkPlatform_backend_HostAddress = http://localhost:5256
+
+GET {{HomeworkPlatform_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
