@@ -5,17 +5,18 @@
         <ion-title>Login</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
+    <ion-content class="ion-padding">
       <ion-item>
         <ion-label position="floating">Username</ion-label>
-        <ion-input v-model="username"></ion-input>
+        <ion-input v-model="username" class="custom-input"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Password</ion-label>
-        <ion-input type="password" v-model="password"></ion-input>
+        <ion-input type="password" v-model="password" class="custom-input"></ion-input>
       </ion-item>
-      <ion-button expand="full" @click="login">Login</ion-button>
+      <ion-button expand="full" @click="login" class="ion-margin-top">Login</ion-button>
       <ion-text color="danger" v-if="errorMessage">{{ errorMessage }}</ion-text>
+      <ion-button expand="full" color="secondary" @click="goToRegister" class="ion-margin-top">Register</ion-button>
     </ion-content>
   </ion-page>
 </template>
@@ -70,6 +71,9 @@ export default {
         this.errorMessage = 'Invalid username or password';
         console.error(error);
       }
+    },
+    goToRegister() {
+      this.$router.push('/register');
     }
   },
   setup() {
@@ -78,3 +82,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.custom-input {
+  margin-top: 20px;
+}
+</style>

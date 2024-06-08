@@ -3,79 +3,78 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Create Post</ion-title>
-        <ion-buttons slot="start">
-          <ion-back-button></ion-back-button>
-        </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-list>
-        <ion-item>
-          <ion-label position="floating">Title</ion-label>
-          <ion-input v-model="title"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Content</ion-label>
-          <ion-textarea v-model="content"></ion-textarea>
-        </ion-item>
-      </ion-list>
-      <ion-button expand="full" @click="submitPost">Submit</ion-button>
+      <ion-item>
+        <ion-label position="floating">Title</ion-label>
+        <ion-input v-model="title" class="custom-input"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Content</ion-label>
+        <ion-input v-model="content" class="custom-input"></ion-input>
+      </ion-item>
+      <ion-button expand="full" @click="createPost">Create</ion-button>
+      <ion-text color="danger" v-if="error">{{ error }}</ion-text>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent, IonList, IonItem, IonLabel, IonInput, IonTextarea, IonButton } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonButton, IonContent, IonItem, IonLabel, IonInput, IonText } from '@ionic/vue';
 import axios from 'axios';
+import { useStore } from 'vuex';
 
 export default {
   name: 'CreatePost',
   components: {
-    IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent, IonList, IonItem, IonLabel, IonInput, IonTextarea, IonButton
+    IonPage, IonHeader, IonToolbar, IonTitle, IonButton, IonContent, IonItem, IonLabel, IonInput, IonText
   },
   data() {
     return {
       title: '',
-      content: ''
+      content: '',
+      error: ''
     };
   },
-  computed: {
-    userId() {
-      const userId = this.$store.state.user ? this.$store.state.user.id : null;
-      console.log("Computed userId:", userId); // Log the userId to check if it's correctly retrieved
-      return userId;
-    }
-  },
   methods: {
-    async submitPost() {
-      if (!this.userId) {
-        console.error('User ID not found.');
+    async createPost() {
+      if (!this.title || !this.content) {
+        this.error = "Title and content are required.";
         return;
       }
+
       try {
-        const postData = {
+        const token = this.$store.state.token;
+        const response = await axios.post('https://localhost:7195/api/Post/create', {
           title: this.title,
-          content: this.content,
-          userId: this.userId
-        };
-        console.log("Submitting post with data:", postData);
-        const response = await axios.post('https://localhost:7195/api/Post/create', postData, {
+          content: this.content
+        }, {
           headers: {
-            'Authorization': `Bearer ${this.$store.state.token}`,
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
           }
         });
-        console.log("Post created successfully:", response.data);
-        this.$store.dispatch('fetchPosts'); // Fetch posts after successfully adding a new post
         this.$router.push('/');
       } catch (error) {
-        console.error('Error creating post:', error.response ? error.response.data : error.message);
+        console.error('Error creating post:', error);
+        if (error.response && error.response.data) {
+          this.error = error.response.data.errors ? error.response.data.errors.UserId.join(', ') : error.response.data;
+        } else {
+          this.error = "Failed to create post. Please try again.";
+        }
       }
-    }
+    },
+  },
+  setup() {
+    const store = useStore();
+    return { store };
   }
 };
 </script>
 
-<style scoped>
-/* Add styling if needed */
+<style>
+.custom-input {
+  margin-top: 20px;
+}
 </style>

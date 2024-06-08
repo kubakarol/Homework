@@ -5,16 +5,16 @@
         <ion-title>Register</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
+    <ion-content class="ion-padding">
       <ion-item>
         <ion-label position="floating">Username</ion-label>
-        <ion-input v-model="username"></ion-input>
+        <ion-input v-model="username" class="custom-input"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Password</ion-label>
-        <ion-input type="password" v-model="password"></ion-input>
+        <ion-input type="password" v-model="password" class="custom-input"></ion-input>
       </ion-item>
-      <ion-button expand="full" @click="register">Register</ion-button>
+      <ion-button expand="full" @click="register" class="ion-margin-top">Register</ion-button>
     </ion-content>
   </ion-page>
 </template>
@@ -67,3 +67,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.custom-input {
+  margin-top: 20px;
+}
+</style>
