@@ -27,6 +27,7 @@ namespace HomeworkPlatform_backend.Controllers
         {
             _logger.LogInformation("Received create post request: {@Model}", model);
 
+            // Pobranie UserId z tokenu JWT
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             _logger.LogInformation("Extracted UserId from claims: {UserId}", userId);
             if (string.IsNullOrEmpty(userId))
@@ -35,11 +36,16 @@ namespace HomeworkPlatform_backend.Controllers
                 return Unauthorized("User ID not found.");
             }
 
+            // Ustawienie UserId w modelu
             model.UserId = userId;
 
             if (!ModelState.IsValid)
             {
                 _logger.LogWarning("Model state invalid: {ModelState}", ModelState);
+                foreach (var error in ModelState)
+                {
+                    _logger.LogWarning("Key: {Key}, Error: {Error}", error.Key, error.Value);
+                }
                 return BadRequest(ModelState);
             }
 
@@ -61,7 +67,6 @@ namespace HomeworkPlatform_backend.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-
 
         [HttpPost("addComment")]
         [Authorize]
