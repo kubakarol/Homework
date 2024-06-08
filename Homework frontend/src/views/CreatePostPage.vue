@@ -8,11 +8,11 @@
     <ion-content>
       <ion-item>
         <ion-label position="floating">Title</ion-label>
-        <ion-input v-model="title"></ion-input>
+        <ion-input v-model="title" class="custom-input"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Content</ion-label>
-        <ion-input v-model="content"></ion-input>
+        <ion-input v-model="content" class="custom-input"></ion-input>
       </ion-item>
       <ion-button expand="full" @click="createPost">Create</ion-button>
       <ion-text color="danger" v-if="error">{{ error }}</ion-text>
@@ -39,32 +39,32 @@ export default {
   },
   methods: {
     async createPost() {
-  if (!this.title || !this.content) {
-    this.error = "Title and content are required.";
-    return;
-  }
-
-  try {
-    const token = this.$store.state.token;
-    const response = await axios.post('https://localhost:7195/api/Post/create', {
-      title: this.title,
-      content: this.content
-    }, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
+      if (!this.title || !this.content) {
+        this.error = "Title and content are required.";
+        return;
       }
-    });
-    this.$router.push('/');
-  } catch (error) {
-    console.error('Error creating post:', error);
-    if (error.response && error.response.data) {
-      this.error = error.response.data.errors ? error.response.data.errors.UserId.join(', ') : error.response.data;
-    } else {
-      this.error = "Failed to create post. Please try again.";
-    }
-  }
-},
+
+      try {
+        const token = this.$store.state.token;
+        const response = await axios.post('https://localhost:7195/api/Post/create', {
+          title: this.title,
+          content: this.content
+        }, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        this.$router.push('/');
+      } catch (error) {
+        console.error('Error creating post:', error);
+        if (error.response && error.response.data) {
+          this.error = error.response.data.errors ? error.response.data.errors.UserId.join(', ') : error.response.data;
+        } else {
+          this.error = "Failed to create post. Please try again.";
+        }
+      }
+    },
   },
   setup() {
     const store = useStore();
@@ -72,3 +72,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.custom-input {
+  margin-top: 20px;
+}
+</style>

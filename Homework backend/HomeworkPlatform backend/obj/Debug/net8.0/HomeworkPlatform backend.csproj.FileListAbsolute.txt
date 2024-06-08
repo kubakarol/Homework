@@ -161,3 +161,58 @@ C:\Users\kubak\Desktop\szkoła\4 semestr\ionic\Homework\Homework backend\Homewor
 C:\Users\kubak\Desktop\szkoła\4 semestr\ionic\Homework\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.genruntimeconfig.cache
 C:\Users\kubak\Desktop\szkoła\4 semestr\ionic\Homework\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\ref\HomeworkPlatform backend.dll
 C:\Users\kubak\Desktop\szkoła\4 semestr\ionic\Homework\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.sourcelink.json
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\appsettings.Development.json
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\appsettings.json
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\HomeworkPlatform backend.exe
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\HomeworkPlatform backend.deps.json
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\HomeworkPlatform backend.runtimeconfig.json
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\HomeworkPlatform backend.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\HomeworkPlatform backend.pdb
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\AWSSDK.Core.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\AWSSDK.SecurityToken.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\BCrypt.Net-Next.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\DnsClient.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\Microsoft.OpenApi.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\MongoDB.Bson.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\MongoDB.Driver.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\MongoDB.Driver.Core.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\MongoDB.Libmongocrypt.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\SharpCompress.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\Snappier.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\ZstdSharp.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\runtimes\linux\native\libmongocrypt.so
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\runtimes\osx\native\libmongocrypt.dylib
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\bin\Debug\net8.0\runtimes\win\native\mongocrypt.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.csproj.AssemblyReference.cache
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.GeneratedMSBuildEditorConfig.editorconfig
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.AssemblyInfoInputs.cache
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.AssemblyInfo.cs
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.csproj.CoreCompileInputs.cache
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.MvcApplicationPartsAssemblyInfo.cs
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.MvcApplicationPartsAssemblyInfo.cache
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.sourcelink.json
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\staticwebassets.build.json
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\staticwebassets.development.json
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\staticwebassets\msbuild.HomeworkPlatform backend.Microsoft.AspNetCore.StaticWebAssets.props
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\staticwebassets\msbuild.build.HomeworkPlatform backend.props
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.HomeworkPlatform backend.props
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.HomeworkPlatform backend.props
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\staticwebassets.pack.json
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\scopedcss\bundle\HomeworkPlatform backend.styles.css
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\Homework.D4B46107.Up2Date
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\refint\HomeworkPlatform backend.dll
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.pdb
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\HomeworkPlatform backend.genruntimeconfig.cache
+F:\projektyzaliczeniowe\HomeworkPlatform\HomeworkPlatform\Homework backend\HomeworkPlatform backend\obj\Debug\net8.0\ref\HomeworkPlatform backend.dll
