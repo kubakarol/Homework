@@ -84,13 +84,13 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Configure CORS
+// Configure CORS to allow all origins
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin",
-        builder => builder.WithOrigins("http://localhost:8100")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod());
+    options.AddPolicy("AllowAll", policyBuilder =>
+        policyBuilder.AllowAnyOrigin()
+                     .AllowAnyHeader()
+                     .AllowAnyMethod());
 });
 
 var app = builder.Build();
@@ -108,7 +108,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // Apply CORS policy
-app.UseCors("AllowSpecificOrigin");
+app.UseCors("AllowAll");
 
 app.MapControllers();
 
