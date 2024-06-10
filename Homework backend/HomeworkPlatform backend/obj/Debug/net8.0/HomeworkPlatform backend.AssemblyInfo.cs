@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HomeworkPlatform backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+47415b4c0433bd254d50dd5d79637b5ca7605492")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+15fea718844064bc3b7771596549b39a600c9323")]
 [assembly: System.Reflection.AssemblyProductAttribute("HomeworkPlatform backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HomeworkPlatform backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

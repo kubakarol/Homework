@@ -1,4 +1,6 @@
 ﻿using HomeworkPlatform_backend.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HomeworkPlatform_backend.Service.IService
 {
@@ -8,6 +10,9 @@ namespace HomeworkPlatform_backend.Service.IService
         Task<Comment> AddCommentAsync(Comment model);
         Task<List<Post>> GetAllPostsAsync();
         Task<List<Post>> GetPostsByUserAsync(string userId);
-
+        Task<Post> GetPostByIdAsync(int postId);
+        Task DeletePostAsync(int postId);
+        Task<Comment> GetCommentByIdAsync(int commentId);
+        Task DeleteCommentAsync(int commentId);
     }
 }

@@ -137,5 +137,48 @@ namespace HomeworkPlatform_backend.Controllers
             var posts = await _postService.GetPostsByUserAsync(userId);
             return Ok(posts);
         }
+
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<IActionResult> DeletePost(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var post = await _postService.GetPostByIdAsync(id);
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            if (post.UserId != userId)
+            {
+                return Forbid();
+            }
+
+            await _postService.DeletePostAsync(id);
+            return NoContent();
+        }
+
+        [HttpDelete("comment/{id}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteComment(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var comment = await _postService.GetCommentByIdAsync(id);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            if (comment.UserId != userId)
+            {
+                return Forbid();
+            }
+
+            await _postService.DeleteCommentAsync(id);
+            return NoContent();
+        }
     }
 }
+

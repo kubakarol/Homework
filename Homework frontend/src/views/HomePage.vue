@@ -11,23 +11,29 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-button expand="full" @click="createPost" v-if="isAuthenticated">Create Post</ion-button>
+      <ion-button expand="full" @click="createPost" v-if="isAuthenticated">Don't know something? Ask someone else!</ion-button>
       <ion-list>
         <ion-item v-for="(post, index) in posts" :key="post.id">
           <ion-label>
             <h2>{{ post.title }}</h2>
             <p>{{ post.content }}</p>
             <p><strong>Posted by: {{ post.userName }}</strong></p>
+            <ion-button v-if="isAuthenticated && post.userId === getUser.id" @click="deletePost(post.id, index)" class="delete-button">
+              <i class="bi bi-trash"></i>
+            </ion-button>
             <h3>Comments</h3>
             <ion-list>
               <ion-item v-for="comment in post.comments" :key="comment.id">
                 <ion-label>
                   <strong>{{ comment.userName }}</strong>: {{ comment.content }}
                 </ion-label>
+                <ion-button v-if="isAuthenticated && comment.userId === getUser.id" @click="deleteComment(comment.id, index)" class="delete-button">
+                  <i class="bi bi-trash"></i>
+                </ion-button>
               </ion-item>
               <ion-item v-if="isAuthenticated">
                 <ion-input v-model="post.newComment" placeholder="Add a comment..."></ion-input>
-                <ion-button @click="addComment(post.id, post.newComment, index)">Submit</ion-button>
+                <ion-button @click="addComment(post.id, post.newComment, index)">Answer</ion-button>
               </ion-item>
             </ion-list>
           </ion-label>
@@ -47,6 +53,9 @@ export default {
   computed: {
     isAuthenticated() {
       return !!this.$store.state.token;
+    },
+    getUser() {
+      return this.$store.state.user;
     },
     posts() {
       return this.$store.state.posts;
@@ -84,6 +93,30 @@ export default {
         console.error('Error adding comment:', error);
       }
     },
+    async deletePost(postId, index) {
+      try {
+        await axios.delete(`https://localhost:7195/api/Post/${postId}`, {
+          headers: {
+            'Authorization': `Bearer ${this.$store.state.token}`
+          }
+        });
+        this.posts.splice(index, 1);
+      } catch (error) {
+        console.error('Error deleting post:', error);
+      }
+    },
+    async deleteComment(commentId, index) {
+      try {
+        await axios.delete(`https://localhost:7195/api/Post/comment/${commentId}`, {
+          headers: {
+            'Authorization': `Bearer ${this.$store.state.token}`
+          }
+        });
+        this.posts[index].comments = this.posts[index].comments.filter(comment => comment.id !== commentId);
+      } catch (error) {
+        console.error('Error deleting comment:', error);
+      }
+    },
     createPost() {
       this.$router.push('/create-post');
     },
@@ -95,7 +128,7 @@ export default {
     },
     logout() {
       this.$store.commit('clearAuthData');
-      this.fetchPosts(); // Odśwież listę postów po wylogowaniu
+      this.fetchPosts();
       this.$router.push('/');
     }
   },
@@ -104,3 +137,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.delete-button {
+  background-color: red !important;
+  color: white !important;
+}
+</style>

@@ -2,6 +2,7 @@
 using HomeworkPlatform_backend.Service.IService;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HomeworkPlatform_backend.Service
@@ -48,6 +49,37 @@ namespace HomeworkPlatform_backend.Service
                 .Where(p => p.UserId == userId)
                 .Include(p => p.Comments)
                 .ToListAsync();
+        }
+
+        public async Task<Post> GetPostByIdAsync(int postId)
+        {
+            return await _context.Posts.Include(p => p.Comments)
+                                       .FirstOrDefaultAsync(p => p.Id == postId);
+        }
+
+        public async Task DeletePostAsync(int postId)
+        {
+            var post = await GetPostByIdAsync(postId);
+            if (post != null)
+            {
+                _context.Posts.Remove(post);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<Comment> GetCommentByIdAsync(int commentId)
+        {
+            return await _context.Comments.FindAsync(commentId);
+        }
+
+        public async Task DeleteCommentAsync(int commentId)
+        {
+            var comment = await GetCommentByIdAsync(commentId);
+            if (comment != null)
+            {
+                _context.Comments.Remove(comment);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

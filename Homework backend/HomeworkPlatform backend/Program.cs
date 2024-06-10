@@ -93,10 +93,12 @@ builder.Services.AddAuthentication(options =>
 // Configure CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin",
-        builder => builder.WithOrigins("http://localhost:8100")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod());
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
 });
 
 var app = builder.Build();
@@ -113,7 +115,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // Apply CORS policy
-app.UseCors("AllowSpecificOrigin");
+app.UseCors();
 
 app.MapControllers();
 
