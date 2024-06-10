@@ -16,6 +16,7 @@
           <ion-label>
             <h2>{{ post.title }}</h2>
             <p>{{ post.content }}</p>
+            <p><strong>Posted by: {{ post.userName }}</strong></p>
             <h3>Comments</h3>
             <ion-list>
               <ion-item v-for="comment in post.comments" :key="comment.id">
@@ -38,29 +39,31 @@
 <script>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput } from '@ionic/vue';
 import axios from 'axios';
-import { useStore } from 'vuex';
 
 export default {
   name: 'Home',
   components: {
     IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput
   },
-  data() {
-    return {
-      posts: []
-    };
-  },
   computed: {
     isAuthenticated() {
       return !!this.$store.state.token;
+    },
+    posts() {
+      return this.$store.state.posts;
     }
   },
   methods: {
     async fetchPosts() {
       try {
         const response = await axios.get('https://localhost:7195/api/Post/getAll');
-        // Add a newComment property to each post for local state
-        this.posts = response.data.map(post => ({ ...post, newComment: '' }));
+        console.log(response.data);
+        const posts = response.data.$values.map(post => ({
+          ...post,
+          comments: post.comments.$values,
+          newComment: ''
+        }));
+        this.$store.commit('setPosts', posts);
       } catch (error) {
         console.error('Error fetching posts:', error);
       }
@@ -76,7 +79,7 @@ export default {
             'Authorization': `Bearer ${this.$store.state.token}`
           }
         });
-        this.posts[index].newComment = ''; // Clear the comment input
+        this.posts[index].newComment = '';
         this.fetchPosts();
       } catch (error) {
         console.error('Error adding comment:', error);
@@ -90,7 +93,8 @@ export default {
     },
     logout() {
       this.$store.commit('clearAuthData');
-      this.$router.push('/login');
+      this.fetchPosts(); // Odśwież listę postów po wylogowaniu
+      this.$router.push('/');
     }
   },
   mounted() {

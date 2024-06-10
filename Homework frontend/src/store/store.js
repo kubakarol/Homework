@@ -6,7 +6,9 @@ const store = createStore({
   state: {
     token: localStorage.getItem('token') || '',
     user: JSON.parse(localStorage.getItem('user')) || null,
-    posts: [] // Add posts state
+    posts: [],
+    username: '',
+    password: ''
   },
   mutations: {
     setToken(state, token) {
@@ -18,7 +20,7 @@ const store = createStore({
       state.user = user;
       localStorage.setItem('user', JSON.stringify(user));
     },
-    setPosts(state, posts) { // Add mutation to set posts
+    setPosts(state, posts) {
       state.posts = posts;
     },
     clearAuthData(state) {
@@ -28,49 +30,59 @@ const store = createStore({
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       delete axios.defaults.headers.common['Authorization'];
+    },
+    resetLoginForm(state) {
+      state.username = '';
+      state.password = '';
     }
   },
   actions: {
-    login({ commit }, authData) {
-      return axios.post('https://localhost:7195/api/auth/login', {
-        email: authData.email,
-        password: authData.password
-      })
-      .then(response => {
+    async login({ dispatch }, authData) {
+      try {
+        const response = await axios.post('https://localhost:7195/api/Auth/login', {
+          userName: authData.username,
+          password: authData.password
+        });
         const token = response.data.token;
         const decodedToken = jwt_decode(token);
         const user = {
-          id: decodedToken.nameid, // Assuming the UserId is stored in the 'nameid' claim
-          userName: decodedToken.unique_name // Adjust based on your token claims
+          id: decodedToken.nameid,
+          userName: decodedToken.unique_name
         };
-        commit('setToken', token);
-        commit('setUser', user);
-      })
-      .catch(error => {
+        dispatch('setUserAndToken', { user, token });
+      } catch (error) {
         console.error('Error during login:', error);
         throw error;
-      });
+      }
     },
-    autoLogin({ commit }) {
+    setUserAndToken({ commit }, { user, token }) {
+      commit('setToken', token);
+      commit('setUser', user);
+    },
+    autoLogin({ dispatch }) {
       const token = localStorage.getItem('token');
       if (!token) {
         return;
       }
       const decodedToken = jwt_decode(token);
       const user = {
-        id: decodedToken.nameid, // Assuming the UserId is stored in the 'nameid' claim
-        userName: decodedToken.unique_name // Adjust based on your token claims
+        id: decodedToken.nameid,
+        userName: decodedToken.unique_name
       };
-      commit('setToken', token);
-      commit('setUser', user);
+      dispatch('setUserAndToken', { user, token });
     },
     logout({ commit }) {
       commit('clearAuthData');
+      commit('resetLoginForm');
     },
-    fetchPosts({ commit }) { // Add action to fetch posts
+    fetchPosts({ commit }) {
       return axios.get('https://localhost:7195/api/Post/getAll')
         .then(response => {
-          commit('setPosts', response.data);
+          commit('setPosts', response.data.$values.map(post => ({
+            ...post,
+            comments: post.comments.$values,
+            newComment: ''
+          })));
         })
         .catch(error => {
           console.error('Error fetching posts:', error);
@@ -84,7 +96,7 @@ const store = createStore({
     getUser(state) {
       return state.user;
     },
-    getPosts(state) { // Add getter for posts
+    getPosts(state) {
       return state.posts;
     }
   },

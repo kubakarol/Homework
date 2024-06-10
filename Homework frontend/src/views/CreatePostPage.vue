@@ -41,33 +41,35 @@ export default {
   },
   computed: {
     userId() {
-      const userId = this.$store.state.user ? this.$store.state.user.id : null;
-      console.log("Computed userId:", userId); // Log the userId to check if it's correctly retrieved
-      return userId;
+      return this.$store.state.user ? this.$store.state.user.id : null;
+    },
+    userName() {
+      return this.$store.state.user ? this.$store.state.user.userName : null;
     }
   },
   methods: {
     async submitPost() {
-      if (!this.userId) {
-        console.error('User ID not found.');
+      if (!this.userId || !this.userName) {
+        console.error('User ID or UserName not found.');
         return;
       }
       try {
         const postData = {
           title: this.title,
           content: this.content,
-          userId: this.userId
+          userId: this.userId,
+          userName: this.userName // Add this line
         };
-        console.log("Submitting post with data:", postData);
         const response = await axios.post('https://localhost:7195/api/Post/create', postData, {
           headers: {
             'Authorization': `Bearer ${this.$store.state.token}`,
             'Content-Type': 'application/json'
           }
         });
-        console.log("Post created successfully:", response.data);
-        this.$store.dispatch('fetchPosts'); // Fetch posts after successfully adding a new post
-        this.$router.push('/');
+        this.$router.push('/'); // Przekieruj na stronę główną po dodaniu posta
+        this.$store.dispatch('fetchPosts'); // Odśwież listę postów po dodaniu nowego posta
+        this.title = '';
+        this.content = ''; // Clear the form fields after successful submission
       } catch (error) {
         console.error('Error creating post:', error.response ? error.response.data : error.message);
       }

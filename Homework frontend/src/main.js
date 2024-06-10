@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
-import store from './store'
+import router from './router/router'
+import store from './store/store'
 import { IonicVue } from '@ionic/vue';
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 
@@ -21,7 +21,6 @@ import '@ionic/vue/css/display.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 store.dispatch('autoLogin');
-
 
 const app = createApp(App)
   .use(IonicVue)
