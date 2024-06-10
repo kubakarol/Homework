@@ -6,13 +6,13 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
-      <ion-item>
-        <ion-label position="floating">Username</ion-label>
-        <ion-input v-model="username" class="ion-padding"></ion-input>
+      <ion-item class="custom-item">
+        <ion-label position="floating" class="custom-label">Username</ion-label>
+        <ion-input v-model="username" class="custom-input"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <ion-input type="password" v-model="password" class="ion-padding"></ion-input>
+      <ion-item class="custom-item">
+        <ion-label position="floating" class="custom-label">Password</ion-label>
+        <ion-input type="password" v-model="password" class="custom-input"></ion-input>
       </ion-item>
       <ion-button expand="full" @click="login" class="ion-margin-top">Login</ion-button>
       <ion-text color="danger" v-if="errorMessage">{{ errorMessage }}</ion-text>
@@ -79,6 +79,31 @@ export default {
 
 <style>
 .custom-input {
-  margin-top: 20px;
+  padding: 7px;
+}
+
+.custom-item {
+  --highlight-height: 1px;
+  --padding-start: 10px;
+  --padding-end: 10px;
+}
+
+.custom-label {
+  --padding-start: 10px;
+  --padding-end: 10px;
+  color: #666;
+  transition: all 0.3s;
+}
+
+.custom-item.ion-focused .custom-label,
+.custom-item:not(.ion-focused) .custom-label.ion-label-floating {
+  transform: scale(0.8) translateY(-20px);
+  color: #999;
+}
+
+.custom-item.ion-focused .custom-label.ion-label-floating,
+.custom-item:not(.ion-focused) .custom-label:not(.ion-label-floating) {
+  transform: scale(1) translateY(0);
+  color: #000;
 }
 </style>

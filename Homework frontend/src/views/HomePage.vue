@@ -5,15 +5,20 @@
         <ion-title>Home</ion-title>
         <ion-buttons slot="end">
           <ion-button v-if="!isAuthenticated" @click="goToLogin">Login</ion-button>
-          <ion-button expand="full" @click="viewUserPosts" v-if="isAuthenticated">My Posts</ion-button>
-          <ion-button v-if="isAuthenticated" @click="logout">Logout</ion-button>
+          <ion-button @click="viewUserPosts" v-if="isAuthenticated" class="custom-button">My Posts</ion-button>
+          <ion-button v-if="isAuthenticated" @click="logout" class="custom-button">Logout</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-button expand="full" @click="createPost" v-if="isAuthenticated">Don't know something? Ask someone else!</ion-button>
+      <div class="button-container">
+        <ion-button @click="createPost" v-if="isAuthenticated" class="add-post-button">Don't know something? Ask someone else!</ion-button>
+        <ion-button @click="toggleSortOrder" size="small" class="sort-button">
+          <i :class="sortOrderIcon"></i>
+        </ion-button>
+      </div>
       <ion-list>
-        <ion-item v-for="(post, index) in posts" :key="post.id">
+        <ion-item v-for="(post, index) in sortedPosts" :key="post.id">
           <ion-label>
             <h2>{{ post.title }}</h2>
             <p>{{ post.content }}</p>
@@ -25,8 +30,7 @@
             <ion-list>
               <ion-item v-for="comment in post.comments" :key="comment.id">
                 <ion-label>
-                  <strong>{{ comment.userName }}</strong>: {{ comment.content }}
-                </ion-label>
+                  <strong>{{ comment.userName }}</strong>: {{ comment.content }}</ion-label>
                 <ion-button v-if="isAuthenticated && comment.userId === getUser.id" @click="deleteComment(comment.id, index)" class="delete-button">
                   <i class="bi bi-trash"></i>
                 </ion-button>
@@ -50,6 +54,11 @@ import axios from 'axios';
 export default {
   name: 'Home',
   components: { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput },
+  data() {
+    return {
+      sortOrder: 'desc' // domyślnie najnowsze posty na górze
+    };
+  },
   computed: {
     isAuthenticated() {
       return !!this.$store.state.token;
@@ -59,6 +68,18 @@ export default {
     },
     posts() {
       return this.$store.state.posts;
+    },
+    sortedPosts() {
+      return this.posts.slice().sort((a, b) => {
+        if (this.sortOrder === 'asc') {
+          return a.id - b.id;
+        } else {
+          return b.id - a.id;
+        }
+      });
+    },
+    sortOrderIcon() {
+      return this.sortOrder === 'asc' ? 'fas fa-arrow-up' : 'fas fa-arrow-down';
     }
   },
   methods: {
@@ -130,6 +151,9 @@ export default {
       this.$store.commit('clearAuthData');
       this.fetchPosts();
       this.$router.push('/');
+    },
+    toggleSortOrder() {
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     }
   },
   mounted() {
@@ -139,8 +163,28 @@ export default {
 </script>
 
 <style scoped>
-.delete-button {
-  background-color: red !important;
-  color: white !important;
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.add-post-button {
+  border-radius: 50px;
+  margin: 10px;
+}
+
+.custom-button {
+  color: black !important;
+}
+
+
+.sort-button {
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  margin: 10px;
 }
 </style>
