@@ -2,15 +2,26 @@ using HomeworkPlatform_backend.Models;
 using HomeworkPlatform_backend.Service.IService;
 using HomeworkPlatform_backend.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using MongoDB.Driver;
+using System.Globalization;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Set the culture to en-US
+var cultureInfo = new CultureInfo("en-US");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -48,16 +59,11 @@ builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 
-// Register MongoDB settings
-builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("MongoDB"));
-builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+// Register DbContext with SQL Server
+builder.Services.AddDbContext<HomeworkPlatformDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Register MongoDB client
-builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
-{
-    var settings = sp.GetRequiredService<IOptions<MongoSettings>>().Value;
-    return new MongoClient(settings.ConnectionString);
-});
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IPostService, PostService>();
@@ -103,7 +109,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
 app.UseAuthorization();
 

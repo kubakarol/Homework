@@ -1,7 +1,6 @@
 ﻿using HomeworkPlatform_backend.Models;
 using HomeworkPlatform_backend.Service.IService;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,12 +8,11 @@ namespace HomeworkPlatform_backend.Service
 {
     public class PostService : IPostService
     {
-        private readonly IMongoCollection<Post> _posts;
+        private readonly HomeworkPlatformDbContext _context;
 
-        public PostService(IOptions<MongoSettings> settings, IMongoClient client)
+        public PostService(HomeworkPlatformDbContext context)
         {
-            var database = client.GetDatabase(settings.Value.DatabaseName);
-            _posts = database.GetCollection<Post>("posts");
+            _context = context;
         }
 
         public async Task<Post> CreatePostAsync(CreatePost model)
@@ -24,30 +22,24 @@ namespace HomeworkPlatform_backend.Service
                 Title = model.Title,
                 Content = model.Content,
                 UserId = model.UserId,
+                UserName = model.UserName
             };
 
-            await _posts.InsertOneAsync(post);
+            _context.Posts.Add(post);
+            await _context.SaveChangesAsync();
             return post;
         }
 
         public async Task<Comment> AddCommentAsync(Comment model)
         {
-            var comment = new Comment
-            {
-                UserId = model.UserId,
-                Content = model.Content,
-            };
-
-            var filter = Builders<Post>.Filter.Eq(p => p.Id, model.PostId);
-            var update = Builders<Post>.Update.Push(p => p.Comments, comment);
-
-            await _posts.UpdateOneAsync(filter, update);
-            return comment;
+            _context.Comments.Add(model);
+            await _context.SaveChangesAsync();
+            return model;
         }
 
         public async Task<List<Post>> GetAllPostsAsync()
         {
-            return await _posts.Find(_ => true).ToListAsync();
+            return await _context.Posts.Include(p => p.Comments).ToListAsync();
         }
     }
 }

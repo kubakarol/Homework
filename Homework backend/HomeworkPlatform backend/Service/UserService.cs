@@ -1,19 +1,18 @@
 ﻿using HomeworkPlatform_backend.Models;
 using HomeworkPlatform_backend.Service.IService;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace HomeworkPlatform_backend.Service
 {
     public class UserService : IUserService
     {
-        private readonly IMongoCollection<User> _users;
+        private readonly HomeworkPlatformDbContext _context;
         private readonly ITokenService _tokenService;
 
-        public UserService(IOptions<MongoSettings> settings, IMongoClient client, ITokenService tokenService)
+        public UserService(HomeworkPlatformDbContext context, ITokenService tokenService)
         {
-            var database = client.GetDatabase(settings.Value.DatabaseName);
-            _users = database.GetCollection<User>("users");
+            _context = context;
             _tokenService = tokenService;
         }
 
@@ -25,13 +24,14 @@ namespace HomeworkPlatform_backend.Service
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password)
             };
 
-            await _users.InsertOneAsync(user);
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync(); // Save changes to get the generated Id
             return user;
         }
 
         public async Task<string> LoginAsync(Login model)
         {
-            var user = await _users.Find(u => u.UserName == model.UserName).FirstOrDefaultAsync();
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == model.UserName);
             if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
             {
                 return null;
