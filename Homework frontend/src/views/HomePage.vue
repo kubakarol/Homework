@@ -5,6 +5,7 @@
         <ion-title>Home</ion-title>
         <ion-buttons slot="end">
           <ion-button v-if="!isAuthenticated" @click="goToLogin">Login</ion-button>
+          <ion-button expand="full" @click="viewUserPosts" v-if="isAuthenticated">My Posts</ion-button>
           <ion-button v-if="isAuthenticated" @click="logout">Logout</ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -42,9 +43,7 @@ import axios from 'axios';
 
 export default {
   name: 'Home',
-  components: {
-    IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput
-  },
+  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput },
   computed: {
     isAuthenticated() {
       return !!this.$store.state.token;
@@ -90,6 +89,9 @@ export default {
     },
     goToLogin() {
       this.$router.push('/login');
+    },
+    viewUserPosts() {
+      this.$router.push('/user-posts');
     },
     logout() {
       this.$store.commit('clearAuthData');

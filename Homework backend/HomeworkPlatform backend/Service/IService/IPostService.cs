@@ -7,5 +7,7 @@ namespace HomeworkPlatform_backend.Service.IService
         Task<Post> CreatePostAsync(CreatePost model);
         Task<Comment> AddCommentAsync(Comment model);
         Task<List<Post>> GetAllPostsAsync();
+        Task<List<Post>> GetPostsByUserAsync(string userId);
+
     }
 }

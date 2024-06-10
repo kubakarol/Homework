@@ -41,5 +41,13 @@ namespace HomeworkPlatform_backend.Service
         {
             return await _context.Posts.Include(p => p.Comments).ToListAsync();
         }
+
+        public async Task<List<Post>> GetPostsByUserAsync(string userId)
+        {
+            return await _context.Posts
+                .Where(p => p.UserId == userId)
+                .Include(p => p.Comments)
+                .ToListAsync();
+        }
     }
 }

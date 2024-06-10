@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+9alzLeauqQoFW1MEbzHPZS8HbjVab/Oaf0GVMY0z58mJRq5GgQjr/bGD2CPfDN+41QxQ3ibqv+dxDHDKOP3bA==",
+  "dgSpecHash": "4p+VaMLt9iv9V0B48/6HGW04H4BxYn67gfZ7ZAQ0c0lp/81v9Q6ORUx/YZPX6vupq076rF9JruJ9WQsHSOTBcw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\kubak\\Desktop\\szkoła\\4 semestr\\ionic\\Homework\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj",
+  "projectFilePath": "C:\\Users\\kubak\\Desktop\\szkoła\\4 semestr\\ionic\\HomeworkPlatform\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kubak\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\kubak\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",

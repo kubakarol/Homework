@@ -7,6 +7,7 @@ const store = createStore({
     token: localStorage.getItem('token') || '',
     user: JSON.parse(localStorage.getItem('user')) || null,
     posts: [],
+    userPosts: [],
     username: '',
     password: ''
   },
@@ -23,10 +24,14 @@ const store = createStore({
     setPosts(state, posts) {
       state.posts = posts;
     },
+    setUserPosts(state, userPosts) {
+      state.userPosts = userPosts;
+    },
     clearAuthData(state) {
       state.token = '';
       state.user = null;
       state.posts = [];
+      state.userPosts = [];
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       delete axios.defaults.headers.common['Authorization'];
@@ -87,6 +92,20 @@ const store = createStore({
         .catch(error => {
           console.error('Error fetching posts:', error);
         });
+    },
+    fetchUserPosts({ commit, state }) {
+      if (!state.user) return;
+      return axios.get(`https://localhost:7195/api/Post/getByUser/${state.user.id}`)
+        .then(response => {
+          commit('setUserPosts', response.data.$values.map(post => ({
+            ...post,
+            comments: post.comments.$values,
+            newComment: ''
+          })));
+        })
+        .catch(error => {
+          console.error('Error fetching user posts:', error);
+        });
     }
   },
   getters: {
@@ -98,6 +117,9 @@ const store = createStore({
     },
     getPosts(state) {
       return state.posts;
+    },
+    getUserPosts(state) {
+      return state.userPosts;
     }
   },
   modules: {}

@@ -129,5 +129,13 @@ namespace HomeworkPlatform_backend.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+        [HttpGet("getByUser/{userId}")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<Post>>> GetPostsByUser(string userId)
+        {
+            var posts = await _postService.GetPostsByUserAsync(userId);
+            return Ok(posts);
+        }
     }
 }

@@ -3,7 +3,7 @@ import HomePage from '../views/HomePage.vue';
 import RegisterPage from '../views/RegisterPage.vue';
 import LoginPage from '../views/LoginPage.vue';
 import CreatePostPage from '../views/CreatePostPage.vue';
-
+import UsersPostsPage from '../views/UsersPostsPage.vue'
 const routes = [
   {
     path: '/',
@@ -24,6 +24,11 @@ const routes = [
     path: '/create-post',
     name: 'CreatePost',
     component: CreatePostPage
+  },
+  {
+    path: '/user-posts',
+    name: 'UserPosts',
+    component: UsersPostsPage
   }
 ];
 

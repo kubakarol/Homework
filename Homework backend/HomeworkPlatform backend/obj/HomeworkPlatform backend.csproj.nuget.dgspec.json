@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kubak\\Desktop\\szkoła\\4 semestr\\ionic\\Homework\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj": {}
+    "C:\\Users\\kubak\\Desktop\\szkoła\\4 semestr\\ionic\\HomeworkPlatform\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kubak\\Desktop\\szkoła\\4 semestr\\ionic\\Homework\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj": {
+    "C:\\Users\\kubak\\Desktop\\szkoła\\4 semestr\\ionic\\HomeworkPlatform\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kubak\\Desktop\\szkoła\\4 semestr\\ionic\\Homework\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj",
+        "projectUniqueName": "C:\\Users\\kubak\\Desktop\\szkoła\\4 semestr\\ionic\\HomeworkPlatform\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj",
         "projectName": "HomeworkPlatform backend",
-        "projectPath": "C:\\Users\\kubak\\Desktop\\szkoła\\4 semestr\\ionic\\Homework\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj",
+        "projectPath": "C:\\Users\\kubak\\Desktop\\szkoła\\4 semestr\\ionic\\HomeworkPlatform\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj",
         "packagesPath": "C:\\Users\\kubak\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kubak\\Desktop\\szkoła\\4 semestr\\ionic\\Homework\\Homework backend\\HomeworkPlatform backend\\obj\\",
+        "outputPath": "C:\\Users\\kubak\\Desktop\\szkoła\\4 semestr\\ionic\\HomeworkPlatform\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
