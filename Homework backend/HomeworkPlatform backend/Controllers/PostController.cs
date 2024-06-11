@@ -87,6 +87,7 @@ namespace HomeworkPlatform_backend.Controllers
             }
         }
 
+
         [HttpPost("addComment")]
         [Authorize]
         public async Task<IActionResult> AddComment([FromBody] AddComment model)
@@ -128,6 +129,30 @@ namespace HomeworkPlatform_backend.Controllers
                 _logger.LogError(ex, "Error adding comment.");
                 return StatusCode(500, "Internal server error");
             }
+        }
+
+        [HttpPut("comment/{id}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateComment(int id, [FromBody] AddComment model)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var comment = await _postService.GetCommentByIdAsync(id);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            if (comment.UserId != userId)
+            {
+                return Forbid();
+            }
+
+            comment.Content = model.Content;
+
+            await _postService.UpdateCommentAsync(comment);
+
+            return NoContent();
         }
 
         [HttpGet("getByUser/{userId}")]

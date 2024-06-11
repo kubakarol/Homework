@@ -51,6 +51,12 @@ namespace HomeworkPlatform_backend.Service
                 .ToListAsync();
         }
 
+        public async Task UpdateCommentAsync(Comment comment)
+        {
+            _context.Comments.Update(comment);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Post> GetPostByIdAsync(int postId)
         {
             return await _context.Posts.Include(p => p.Comments)

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\projektyzaliczeniowe\\HomeworkPlatform\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj": {}
+    "F:\\projektyzaliczeniowe\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj": {}
   },
   "projects": {
-    "F:\\projektyzaliczeniowe\\HomeworkPlatform\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj": {
+    "F:\\projektyzaliczeniowe\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\projektyzaliczeniowe\\HomeworkPlatform\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj",
+        "projectUniqueName": "F:\\projektyzaliczeniowe\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj",
         "projectName": "HomeworkPlatform backend",
-        "projectPath": "F:\\projektyzaliczeniowe\\HomeworkPlatform\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj",
+        "projectPath": "F:\\projektyzaliczeniowe\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\HomeworkPlatform backend.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "F:\\projektyzaliczeniowe\\HomeworkPlatform\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\obj\\",
+        "outputPath": "F:\\projektyzaliczeniowe\\HomeworkPlatform\\Homework backend\\HomeworkPlatform backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

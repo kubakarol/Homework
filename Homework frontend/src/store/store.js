@@ -39,6 +39,21 @@ const store = createStore({
     resetLoginForm(state) {
       state.username = '';
       state.password = '';
+    },
+    updatePost(state, post) {
+      const index = state.posts.findIndex(p => p.id === post.id);
+      if (index !== -1) {
+        state.posts[index] = post;
+      }
+    },
+    updateComment(state, comment) {
+      const postIndex = state.posts.findIndex(p => p.id === comment.postId);
+      if (postIndex !== -1) {
+        const commentIndex = state.posts[postIndex].comments.findIndex(c => c.id === comment.id);
+        if (commentIndex !== -1) {
+          state.posts[postIndex].comments[commentIndex] = comment;
+        }
+      }
     }
   },
   actions: {
@@ -122,6 +137,32 @@ const store = createStore({
         commit('setPosts', posts);
       } catch (error) {
         console.error('Error searching posts:', error);
+      }
+    },
+    async updatePost({ commit }, post) {
+      try {
+        const response = await axios.put(`https://localhost:7195/api/Post/${post.id}`, post, {
+          headers: {
+            'Authorization': `Bearer ${this.state.token}`
+          }
+        });
+        commit('updatePost', response.data);
+      } catch (error) {
+        console.error('Error updating post:', error);
+        throw error;
+      }
+    },
+    async updateComment({ commit }, comment) {
+      try {
+        const response = await axios.put(`https://localhost:7195/api/Post/comment/${comment.id}`, comment, {
+          headers: {
+            'Authorization': `Bearer ${this.state.token}`
+          }
+        });
+        commit('updateComment', response.data);
+      } catch (error) {
+        console.error('Error updating comment:', error);
+        throw error;
       }
     }
   },

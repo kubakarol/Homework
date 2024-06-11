@@ -23,20 +23,33 @@
       <ion-list>
         <ion-item v-for="(post, index) in sortedPosts" :key="post.id">
           <ion-label>
-            <h2>{{ post.title }}</h2>
-            <p>{{ post.content }}</p>
-            <p><strong>Posted by: <router-link :to="{ name: 'UserProfile', params: { userId: post.userId } }">{{ post.userName }}</router-link></strong></p>
-            <ion-button v-if="isAuthenticated && post.userId === getUser.id" @click="deletePost(post.id, index)" class="delete-button">
-              <i class="bi bi-trash"></i>
-            </ion-button>
+            <div v-if="editingPost === post">
+              <ion-input v-model="editedPostTitle" placeholder="Edit title..."></ion-input>
+              <ion-textarea v-model="editedPostContent" placeholder="Edit content..."></ion-textarea>
+              <ion-button @click="saveEditedPost">Save</ion-button>
+              <ion-button @click="cancelEditPost">Cancel</ion-button>
+            </div>
+            <div v-else>
+              <h2>{{ post.title }}</h2>
+              <p>{{ post.content }}</p>
+              <p><strong>Posted by: <router-link :to="{ name: 'UserProfile', params: { userId: post.userId } }">{{ post.userName }}</router-link></strong></p>
+              <ion-button v-if="isAuthenticated && post.userId === getUser.id" @click="deletePost(post.id, index)" class="delete-button"><i class="bi bi-trash"></i></ion-button>
+            </div>
             <h3>Comments</h3>
             <ion-list>
               <ion-item v-for="comment in post.comments" :key="comment.id">
                 <ion-label>
-                  <strong>{{ comment.userName }}</strong>: {{ comment.content }}</ion-label>
-                <ion-button v-if="isAuthenticated && comment.userId === getUser.id" @click="deleteComment(comment.id, index)" class="delete-button">
-                  <i class="bi bi-trash"></i>
-                </ion-button>
+                  <div v-if="editingComment === comment">
+                    <ion-input v-model="editedCommentContent" placeholder="Edit comment..."></ion-input>
+                    <ion-button @click="saveEditedComment">Save</ion-button>
+                    <ion-button @click="cancelEditComment">Cancel</ion-button>
+                  </div>
+                  <div v-else>
+                    <strong>{{ comment.userName }}</strong>: {{ comment.content }}
+                    <ion-button v-if="isAuthenticated && comment.userId === getUser.id" @click="editComment(comment, post.id, index)"><i class="bi bi-pencil-square"></i></ion-button>
+                    <ion-button v-if="isAuthenticated && comment.userId === getUser.id" @click="deleteComment(comment.id, index)"><i class="bi bi-trash"></i></ion-button>
+                  </div>
+                </ion-label>
               </ion-item>
               <ion-item v-if="isAuthenticated">
                 <ion-input v-model="post.newComment" placeholder="Add a comment..."></ion-input>
@@ -51,16 +64,24 @@
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput, IonSearchbar } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput, IonSearchbar, IonTextarea } from '@ionic/vue';
 import axios from 'axios';
 
 export default {
   name: 'Home',
-  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput, IonSearchbar },
+  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput, IonSearchbar, IonTextarea },
   data() {
     return {
       sortOrder: 'desc', // domyślnie najnowsze posty na górze
-      searchQuery: ''
+      searchQuery: '',
+      editingPost: null,
+      editingComment: null,
+      editingPostIndex: null,
+      editingCommentIndex: null,
+      editingCommentPostIndex: null,
+      editedPostTitle: '',
+      editedPostContent: '',
+      editedCommentContent: ''
     };
   },
   computed: {
@@ -179,6 +200,66 @@ export default {
     },
     toggleSortOrder() {
       this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    },
+    async editPost(post, index) {
+      this.editingPost = post;
+      this.editingPostIndex = index;
+      this.editedPostTitle = post.title;
+      this.editedPostContent = post.content;
+    },
+    async saveEditedPost() {
+      if (!this.editingPost) return;
+      try {
+        await axios.put(`https://localhost:7195/api/Post/${this.editingPost.id}`, {
+          title: this.editedPostTitle,
+          content: this.editedPostContent
+        }, {
+          headers: {
+            'Authorization': `Bearer ${this.$store.state.token}`
+          }
+        });
+        this.posts[this.editingPostIndex].title = this.editedPostTitle;
+        this.posts[this.editingPostIndex].content = this.editedPostContent;
+        this.editingPost = null;
+        this.editingPostIndex = null;
+      } catch (error) {
+        console.error('Error editing post:', error);
+      }
+    },
+    async editComment(comment, index) {
+      this.editingComment = comment;
+      this.editingCommentIndex = index;
+      this.editedCommentContent = comment.content;
+    },
+    async saveEditedComment() {
+      if (!this.editingComment) return;
+      try {
+        await axios.put(`https://localhost:7195/api/Post/comment/${this.editingComment.id}`, {
+          content: this.editedCommentContent
+        }, {
+          headers: {
+            'Authorization': `Bearer ${this.$store.state.token}`
+          }
+        });
+        const postIndex = this.posts.findIndex(post => post.id === this.editingComment.postId);
+        const commentIndex = this.posts[postIndex].comments.findIndex(comment => comment.id === this.editingComment.id);
+        this.posts[postIndex].comments[commentIndex].content = this.editedCommentContent;
+        this.editingComment = null;
+        this.editingCommentIndex = null;
+      } catch (error) {
+        console.error('Error editing comment:', error);
+      }
+    },
+    cancelEditPost() {
+      this.editingPost = null;
+      this.editingPostIndex = null;
+      this.editedPostTitle = '';
+      this.editedPostContent = '';
+    },
+    cancelEditComment() {
+      this.editingComment = null;
+      this.editingCommentIndex = null;
+      this.editedCommentContent = '';
     }
   },
   mounted() {
