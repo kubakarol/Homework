@@ -15,7 +15,7 @@
         <ion-searchbar v-model="searchQuery" @ionInput="searchPosts"></ion-searchbar>
       </div>
       <div class="button-container">
-        <ion-button @click="createPost" v-if="isAuthenticated" class="add-post-button">Don't know something? Ask someone else!</ion-button>
+        <ion-button @click="createPost" v-if="isAuthenticated" class="add-post-button">Don't know something? Create a post!</ion-button>
         <ion-button @click="toggleSortOrder" size="small" class="sort-button">
           <i :class="sortOrderIcon"></i>
         </ion-button>
@@ -69,6 +69,9 @@ import axios from 'axios';
 
 export default {
   name: 'Home',
+  meta: {
+    transitionEl: 'ion-content'
+  },
   components: { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput, IonSearchbar, IonTextarea },
   data() {
     return {

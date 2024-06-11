@@ -17,23 +17,32 @@
       <ion-button expand="full" @click="login" class="ion-margin-top">Login</ion-button>
       <ion-text color="danger" v-if="errorMessage">{{ errorMessage }}</ion-text>
       <ion-button expand="full" color="secondary" @click="goToRegister" class="ion-margin-top">Register</ion-button>
+      <ion-toast :is-open="toast.isOpen" :message="toast.message" :duration="toast.duration" position="top" color="success"></ion-toast>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButton, IonText } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButton, IonText, IonToast } from '@ionic/vue';
 import axios from 'axios';
 import { useStore } from 'vuex';
 
 export default {
   name: 'Login',
-  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButton, IonText },
+  meta: {
+    transitionEl: 'ion-content'
+  },
+  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonButton, IonText, IonToast },
   data() {
     return {
       username: '',
       password: '',
-      errorMessage: ''
+      errorMessage: '',
+      toast: {
+        isOpen: false,
+        message: '',
+        duration: 2000
+      }
     };
   },
   methods: {
@@ -43,6 +52,7 @@ export default {
           username: this.username,
           password: this.password
         });
+        this.showToast(`Witaj, ${this.username}`);
         this.$router.push('/');
       } catch (error) {
         this.errorMessage = 'Invalid username or password';
@@ -51,6 +61,13 @@ export default {
     },
     goToRegister() {
       this.$router.push('/register');
+    },
+    showToast(message) {
+      this.toast.message = message;
+      this.toast.isOpen = true;
+      setTimeout(() => {
+        this.toast.isOpen = false;
+      }, this.toast.duration);
     },
     resetForm() {
       this.username = '';

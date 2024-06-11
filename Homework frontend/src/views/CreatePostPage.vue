@@ -11,32 +11,41 @@
     <ion-content>
       <ion-list>
         <ion-item>
-          <ion-label position="floating">Title</ion-label>
+          <ion-label position="stacked">Title</ion-label>
           <ion-input v-model="title"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Content</ion-label>
+          <ion-label position="stacked">Content</ion-label>
           <ion-textarea v-model="content"></ion-textarea>
         </ion-item>
       </ion-list>
       <ion-button expand="full" @click="submitPost">Submit</ion-button>
+      <ion-toast :is-open="toast.isOpen" :message="toast.message" :duration="toast.duration" position="top" color="success"></ion-toast>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent, IonList, IonItem, IonLabel, IonInput, IonTextarea, IonButton } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent, IonList, IonItem, IonLabel, IonInput, IonTextarea, IonButton, IonToast } from '@ionic/vue';
 import axios from 'axios';
 
 export default {
+  meta: {
+    transitionEl: 'ion-content'
+  },
   name: 'CreatePost',
   components: {
-    IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent, IonList, IonItem, IonLabel, IonInput, IonTextarea, IonButton
+    IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent, IonList, IonItem, IonLabel, IonInput, IonTextarea, IonButton, IonToast
   },
   data() {
     return {
       title: '',
-      content: ''
+      content: '',
+      toast: {
+        isOpen: false,
+        message: '',
+        duration: 2000
+      }
     };
   },
   computed: {
@@ -58,7 +67,7 @@ export default {
           title: this.title,
           content: this.content,
           userId: this.userId,
-          userName: this.userName // Add this line
+          userName: this.userName
         };
         const response = await axios.post('https://localhost:7195/api/Post/create', postData, {
           headers: {
@@ -70,14 +79,19 @@ export default {
         this.$store.dispatch('fetchPosts'); // Odśwież listę postów po dodaniu nowego posta
         this.title = '';
         this.content = ''; // Clear the form fields after successful submission
+        this.showToast('Post successfully added');
       } catch (error) {
         console.error('Error creating post:', error.response ? error.response.data : error.message);
+        this.showToast('Error creating post');
       }
+    },
+    showToast(message) {
+      this.toast.message = message;
+      this.toast.isOpen = true;
+      setTimeout(() => {
+        this.toast.isOpen = false;
+      }, this.toast.duration);
     }
   }
 };
 </script>
-
-<style scoped>
-/* Add styling if needed */
-</style>

@@ -35,6 +35,9 @@ import axios from 'axios';
 
 export default {
   name: 'Register',
+  meta: {
+    transitionEl: 'ion-content'
+  },
   components: {
     IonPage,
     IonHeader,

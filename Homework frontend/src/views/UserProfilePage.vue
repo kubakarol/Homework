@@ -54,6 +54,9 @@ import axios from 'axios';
 
 export default {
   name: 'UserProfile',
+  meta: {
+    transitionEl: 'ion-content'
+  },
   components: { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent, IonList, IonItem, IonLabel, IonButton, IonInput, IonTextarea },
   data() {
     return {
