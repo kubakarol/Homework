@@ -81,5 +81,13 @@ namespace HomeworkPlatform_backend.Service
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task<List<Post>> SearchPostsAsync(string query)
+        {
+            return await _context.Posts
+                .Where(p => p.Title.Contains(query) || p.Content.Contains(query))
+                .Include(p => p.Comments)
+                .ToListAsync();
+        }
+
     }
 }

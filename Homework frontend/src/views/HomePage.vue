@@ -11,6 +11,9 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
+      <div class="search-container">
+        <ion-searchbar v-model="searchQuery" @ionInput="searchPosts"></ion-searchbar>
+      </div>
       <div class="button-container">
         <ion-button @click="createPost" v-if="isAuthenticated" class="add-post-button">Don't know something? Ask someone else!</ion-button>
         <ion-button @click="toggleSortOrder" size="small" class="sort-button">
@@ -22,7 +25,7 @@
           <ion-label>
             <h2>{{ post.title }}</h2>
             <p>{{ post.content }}</p>
-            <p><strong>Posted by: {{ post.userName }}</strong></p>
+            <p><strong>Posted by: <router-link :to="{ name: 'UserProfile', params: { userId: post.userId } }">{{ post.userName }}</router-link></strong></p>
             <ion-button v-if="isAuthenticated && post.userId === getUser.id" @click="deletePost(post.id, index)" class="delete-button">
               <i class="bi bi-trash"></i>
             </ion-button>
@@ -48,15 +51,16 @@
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput, IonSearchbar } from '@ionic/vue';
 import axios from 'axios';
 
 export default {
   name: 'Home',
-  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput },
+  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput, IonSearchbar },
   data() {
     return {
-      sortOrder: 'desc' // domyślnie najnowsze posty na górze
+      sortOrder: 'desc', // domyślnie najnowsze posty na górze
+      searchQuery: ''
     };
   },
   computed: {
@@ -95,6 +99,27 @@ export default {
         this.$store.commit('setPosts', posts);
       } catch (error) {
         console.error('Error fetching posts:', error);
+      }
+    },
+    async searchPosts() {
+      if (!this.searchQuery.trim()) {
+        this.fetchPosts();
+        return;
+      }
+      try {
+        const response = await axios.get('https://localhost:7195/api/Post/search', {
+          params: {
+            query: this.searchQuery
+          }
+        });
+        const posts = response.data.$values.map(post => ({
+          ...post,
+          comments: post.comments.$values,
+          newComment: ''
+        }));
+        this.$store.commit('setPosts', posts);
+      } catch (error) {
+        console.error('Error searching posts:', error);
       }
     },
     async addComment(postId, newComment, index) {
@@ -180,11 +205,17 @@ export default {
   color: black !important;
 }
 
-
 .sort-button {
   background-color: #007bff;
   color: white;
   border-radius: 50%;
+  margin: 10px;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 10px;
 }
 </style>

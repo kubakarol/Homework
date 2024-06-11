@@ -14,5 +14,7 @@ namespace HomeworkPlatform_backend.Service.IService
         Task DeletePostAsync(int postId);
         Task<Comment> GetCommentByIdAsync(int commentId);
         Task DeleteCommentAsync(int commentId);
+        Task<List<Post>> SearchPostsAsync(string query);
+
     }
 }

@@ -106,6 +106,23 @@ const store = createStore({
         .catch(error => {
           console.error('Error fetching user posts:', error);
         });
+    },
+    async searchPosts({ commit }, query) {
+      try {
+        const response = await axios.get('https://localhost:7195/api/Post/search', {
+          params: {
+            query: query
+          }
+        });
+        const posts = response.data.$values.map(post => ({
+          ...post,
+          comments: post.comments.$values,
+          newComment: ''
+        }));
+        commit('setPosts', posts);
+      } catch (error) {
+        console.error('Error searching posts:', error);
+      }
     }
   },
   getters: {

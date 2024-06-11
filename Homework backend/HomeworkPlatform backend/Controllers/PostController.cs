@@ -179,6 +179,23 @@ namespace HomeworkPlatform_backend.Controllers
             await _postService.DeleteCommentAsync(id);
             return NoContent();
         }
+        [HttpGet("getByUser/{userId}/public")]
+        public async Task<ActionResult<IEnumerable<Post>>> GetPostsByUserPublic(string userId)
+        {
+            var posts = await _postService.GetPostsByUserAsync(userId);
+            return Ok(posts);
+        }
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<Post>>> SearchPosts([FromQuery] string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                return BadRequest("Query cannot be empty.");
+            }
+            var posts = await _postService.SearchPostsAsync(query);
+            return Ok(posts);
+        }
+
     }
 }
 

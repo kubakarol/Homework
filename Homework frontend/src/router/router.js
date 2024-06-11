@@ -3,7 +3,9 @@ import HomePage from '../views/HomePage.vue';
 import RegisterPage from '../views/RegisterPage.vue';
 import LoginPage from '../views/LoginPage.vue';
 import CreatePostPage from '../views/CreatePostPage.vue';
-import UsersPostsPage from '../views/UsersPostsPage.vue'
+import UsersPostsPage from '../views/UsersPostsPage.vue';
+import UserProfilePage from '../views/UserProfilePage.vue';
+
 const routes = [
   {
     path: '/',
@@ -29,6 +31,11 @@ const routes = [
     path: '/user-posts',
     name: 'UserPosts',
     component: UsersPostsPage
+  },
+  {
+    path: '/user-profile/:userId',
+    name: 'UserProfile',
+    component: UserProfilePage
   }
 ];
 
